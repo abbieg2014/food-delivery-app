@@ -162,128 +162,149 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lightBlue.shade200,
-      body: Column(
+      body: Stack(
         children: [
-          Expanded(child: Container()), // This will push the content to the bottom
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                if (!isVerifyingEmail)
-                  Column(
-                    children: [
-                      const SizedBox(height: 10),
-                      SizedBox(
-                        width: 200,
-                        height: 200,
-                        child: Image.asset('assets/images/login_register.png'),
-                      ),
-                      const SizedBox(height: 25),
-                      const Padding(
-                        padding: EdgeInsets.only(bottom: 10),
-                        child: Text(
-                          'Food Delivery App',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+          if (isVerifyingEmail)
+            Positioned(
+              top: 40,
+              left: 16,
+              child: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  setState(() {
+                    isVerifyingEmail = false;
+                  });
+                },
+              ),
+            ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (!isVerifyingEmail)
+                    Column(
+                      children: [
+                        const SizedBox(height: 10),
+                        SizedBox(
+                          width: 200,
+                          height: 200,
+                          child: Image.asset('assets/images/login_register.png'),
+                        ),
+                        const SizedBox(height: 25),
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 10),
+                          child: Text(
+                            'Food Delivery App',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                if (isVerifyingEmail) ...[
-                  const Text('Please verify by entering the email associated with your account:'),
-                  TextField(
-                    controller: verificationEmailController,
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
-                      filled: true,
-                      fillColor: Colors.orangeAccent,
-                      border: OutlineInputBorder(),
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: 30),
-                  ElevatedButton(
-                    onPressed: verifyEmail,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange, // Set the background color to orange
+                  if (isVerifyingEmail)
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text('Please verify by entering the email associated with your account:'),
+                        const SizedBox(height: 10),
+                        TextField(
+                          controller: verificationEmailController,
+                          decoration: const InputDecoration(
+                            labelText: 'Email',
+                            filled: true,
+                            fillColor: Colors.orangeAccent,
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        ElevatedButton(
+                          onPressed: verifyEmail,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.orange.shade400, // Set the background color to orange
+                          ),
+                          child: const Text('Verify Email'),
+                        ),
+                      ],
                     ),
-                    child: const Text('Verify Email'),
-                  ),
-                ] else ...[
-                  TextField(
-                    controller: usernameController,
-                    decoration: const InputDecoration(
-                      labelText: 'Username',
-                      filled: true,
-                      fillColor: Colors.orangeAccent,
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  if (!isSignIn)
-                    const SizedBox(height: 5),
-                  if (!isSignIn)
+                  if (!isVerifyingEmail) ...[
                     TextField(
-                      controller: emailController,
+                      controller: usernameController,
                       decoration: const InputDecoration(
-                        labelText: 'Email',
+                        labelText: 'Username',
                         filled: true,
                         fillColor: Colors.orangeAccent,
                         border: OutlineInputBorder(),
                       ),
                     ),
-                  const SizedBox(height: 5),
-                  TextField(
-                    controller: passwordController,
-                    obscureText: !showPassword,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      filled: true,
-                      fillColor: Colors.orangeAccent,
-                      border: const OutlineInputBorder(),
-                      suffixIcon: IconButton(
-                        icon: Icon(showPassword ? Icons.visibility : Icons.visibility_off),
-                        onPressed: toggleShowPassword,
+                    if (!isSignIn)
+                      const SizedBox(height: 5),
+                    if (!isSignIn)
+                      TextField(
+                        controller: emailController,
+                        decoration: const InputDecoration(
+                          labelText: 'Email',
+                          filled: true,
+                          fillColor: Colors.orangeAccent,
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    const SizedBox(height: 5),
+                    TextField(
+                      controller: passwordController,
+                      obscureText: !showPassword,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        filled: true,
+                        fillColor: Colors.orangeAccent,
+                        border: const OutlineInputBorder(),
+                        suffixIcon: IconButton(
+                          icon: Icon(showPassword ? Icons.visibility : Icons.visibility_off),
+                          onPressed: toggleShowPassword,
+                        ),
                       ),
                     ),
-                  ),
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: savePassword,
-                        onChanged: (bool? value) {
-                          setState(() {
-                            savePassword = value ?? false;
-                          });
-                        },
-                      ),
-                      const Text('Save password'),
-                    ],
-                  ),
-                  const SizedBox(height: 0),
-                  ElevatedButton(
-                    onPressed: isSignIn ? signIn : signUp,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange.shade400, // Set the background color to orange
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: savePassword,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              savePassword = value ?? false;
+                            });
+                          },
+                        ),
+                        const Text('Save password'),
+                      ],
                     ),
-                    child: Text(isSignIn ? 'Sign In' : 'Sign Up'),
-                  ),
-                  TextButton(
-                    onPressed: toggleAuthMode,
-                    child: Text(isSignIn ? 'Don\'t have an account? Sign Up' : 'Already have an account? Sign In'),
-                  ),
-                  if (isSignIn)
+                    const SizedBox(height: 0),
+                    ElevatedButton(
+                      onPressed: isSignIn ? signIn : signUp,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orange.shade400, // Set the background color to orange
+                      ),
+                      child: Text(isSignIn ? 'Sign In' : 'Sign Up'),
+                    ),
                     TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const PasswordResetPage()),
-                        );
-                      },
-                      child: const Text('Forgot Password?'),
+                      onPressed: toggleAuthMode,
+                      child: Text(isSignIn ? 'Don\'t have an account? Sign Up' : 'Already have an account? Sign In'),
                     ),
+                    if (isSignIn)
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const PasswordResetPage()),
+                          );
+                        },
+                        child: const Text('Forgot Password?'),
+                      ),
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
         ],

@@ -43,20 +43,30 @@ class _PasswordResetPageState extends State<PasswordResetPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Reset Password'),
+        backgroundColor: Colors.lightBlue.shade200,
       ),
+      backgroundColor: Colors.lightBlue.shade200,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
               controller: emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
+              decoration: const InputDecoration(
+                labelText: 'Email',
+                filled: true,
+                fillColor: Colors.orangeAccent,
+                border: OutlineInputBorder(),
+              ),
             ),
             const SizedBox(height: 20),
             isLoading
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
               onPressed: resetPassword,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orange, // Set the background color to orange
+              ),
               child: const Text('Send Password Reset Email'),
             ),
           ],
