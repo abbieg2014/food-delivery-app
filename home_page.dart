@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'auth_page.dart';
 import 'cart_screen.dart';
+import 'settings_screen.dart'; // Import the SettingsScreen
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,7 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 0; // Current index for BottomNavigationBar
 
   static const List<Widget> _widgetOptions = <Widget>[
     Center(child: Text('Home Page')),
@@ -21,7 +22,14 @@ class _HomePageState extends State<HomePage> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      if (index == 2) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const SettingsScreen()),
+        );
+      } else {
+        _selectedIndex = index;
+      }
     });
   }
 
@@ -30,7 +38,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
-        backgroundColor: Colors.lightBlue.shade200,
+        backgroundColor: Colors.blue, // Set the app bar color to blue
         actions: [
           IconButton(
             icon: const Icon(Icons.shopping_cart),
@@ -73,8 +81,8 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.orange.shade400,
-        backgroundColor: Colors.lightBlue.shade300,
+        selectedItemColor: Colors.amber[800],
+        backgroundColor: Colors.blue, // Set the bottom navigation bar color to blue
         onTap: _onItemTapped,
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'checkout_screen.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -8,7 +9,7 @@ class CartScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cart'),
-        backgroundColor: Colors.lightBlue.shade200,
+        backgroundColor: Colors.blue, // Set the app bar color to blue
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -23,14 +24,17 @@ class CartScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Container(
-        color: Colors.lightBlue.shade200,
+        color: Colors.blue, // Set the bottom container color to blue
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
           onPressed: () {
-            print('Checkout button tapped!');
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const CheckoutScreen()),
+            );
           },
           style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.all(16.0), backgroundColor: Colors.orange.shade400,
+            padding: const EdgeInsets.all(16.0), backgroundColor: Colors.orange, // Set the button background color to orange
           ),
           child: const Text('Checkout'),
         ),

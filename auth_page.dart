@@ -186,13 +186,13 @@ class _AuthPageState extends State<AuthPage> {
                   if (!isVerifyingEmail)
                     Column(
                       children: [
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 5),
                         SizedBox(
                           width: 200,
                           height: 200,
                           child: Image.asset('assets/images/login_register.png'),
                         ),
-                        const SizedBox(height: 25),
+                        const SizedBox(height: 20),
                         const Padding(
                           padding: EdgeInsets.only(bottom: 10),
                           child: Text(
