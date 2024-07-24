@@ -53,7 +53,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onTap: () {
                 // Navigate to account settings screen or handle account settings logic
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Navigate to Account Settings')),
+                  const SnackBar(content: Text('Navigate to Account Settings')),
                 );
               },
             ),
@@ -68,7 +68,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onTap: () {
                 // Navigate to address management screen or handle address management logic
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Navigate to Manage Addresses')),
+                  const SnackBar(content: Text('Navigate to Manage Addresses')),
                 );
               },
             ),
@@ -83,7 +83,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onTap: () {
                 // Navigate to payment methods screen or handle payment methods logic
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Navigate to Manage Payment Methods')),
+                  const SnackBar(content: Text('Navigate to Manage Payment Methods')),
                 );
               },
             ),
