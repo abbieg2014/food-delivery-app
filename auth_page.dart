@@ -35,15 +35,15 @@ class _AuthPageState extends State<AuthPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? savedUsername = prefs.getString('username');
     String? savedPassword = prefs.getString('password');
-
-    if (savedUsername != null && savedPassword != null) {
+    
+     if (savedUsername != null && savedPassword != null) {
       usernameController.text = savedUsername;
       passwordController.text = savedPassword;
       setState(() {
         savePassword = true;
       });
     }
-  }
+    }
 
   void toggleAuthMode() {
     setState(() {
@@ -169,7 +169,7 @@ class _AuthPageState extends State<AuthPage> {
               top: 40,
               left: 16,
               child: IconButton(
-                icon: Icon(Icons.arrow_back),
+                icon: const Icon(Icons.arrow_back),
                 onPressed: () {
                   setState(() {
                     isVerifyingEmail = false;

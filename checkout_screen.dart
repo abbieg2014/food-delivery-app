@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'cart_provider.dart';
+import 'order_tracking_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
@@ -9,7 +12,6 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   final _formKey = GlobalKey<FormState>();
-
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
@@ -19,17 +21,23 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
   void _processCheckout() {
     if (_formKey.currentState!.validate()) {
-      // Process the checkout
-      // You can replace this with actual checkout logic
+      
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Processing Checkout')),
+        const SnackBar(content: Text('Processing Checkout')),
       );
-      Navigator.pop(context); // Go back to the previous screen after checkout
+      Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const OrderTrackingScreen()),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+    final cartItems = cartProvider.cartItems;
+    double total = cartItems.fold(0, (sum, item) => sum + item.price);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Checkout'),
@@ -48,11 +56,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           key: _formKey,
           child: ListView(
             children: <Widget>[
+              // Customer Information
               const Text(
                 'Customer Information',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 8.0),
               TextFormField(
                 controller: _nameController,
                 decoration: const InputDecoration(
@@ -84,12 +92,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   return null;
                 },
               ),
-              const SizedBox(height: 8.0),
+
+              const SizedBox(height: 16.0),
+
+              // Delivery Information
               const Text(
                 'Delivery Information',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 8.0),
               TextFormField(
                 controller: _addressController,
                 decoration: const InputDecoration(
@@ -103,12 +113,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   return null;
                 },
               ),
-              const SizedBox(height: 8.0),
+
+              const SizedBox(height: 16.0),
+
+              // Payment Method
               const Text(
                 'Payment Method',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 8.0),
               TextFormField(
                 controller: _cardNumberController,
                 decoration: const InputDecoration(
@@ -138,7 +150,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the expiry date';
                   }
-                  // Additional validation for expiry date format can be added here
+                  
                   return null;
                 },
               ),
@@ -161,28 +173,42 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   return null;
                 },
               ),
+
               const SizedBox(height: 16.0),
+
+              // Order Summary
               const Text(
                 'Order Summary',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8.0),
-              // Here you can add a summary of the order
-              // For example, list of items, total price, etc.
-              // For demonstration, a simple placeholder text is added
               Container(
                 padding: const EdgeInsets.all(8.0),
                 color: Colors.white,
-                child: const Text(
-                  'Order summary goes here',
-                  style: TextStyle(fontSize: 16),
+                child: Column(
+                  children: [
+                    for (var item in cartItems)
+                      ListTile(
+                        title: Text(item.name),
+                        trailing: Text('\$${item.price.toStringAsFixed(2)}'),
+                      ),
+                    const Divider(),
+                    ListTile(
+                      title: const Text('Total'),
+                      trailing: Text('\$${total.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                  ],
                 ),
               ),
+
               const SizedBox(height: 16.0),
+
+              // Checkout Button
               ElevatedButton(
                 onPressed: _processCheckout,
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(16.0), backgroundColor: Colors.orange, // Set the button background color to orange
+                  padding: const EdgeInsets.all(16.0),
+                  backgroundColor: Colors.orange, 
                 ),
                 child: const Text('ORDER NOW'),
               ),
@@ -193,3 +219,4 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 }
+
