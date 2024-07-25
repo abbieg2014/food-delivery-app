@@ -50,9 +50,9 @@ class _SplashScreenState extends State<SplashScreen> {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 0.0),
                 child: Text(
-                  'Get food delivered quickly and simply with [App Name]',
+                  'Welcome to Bite Box',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 27,
                     fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.center,
@@ -69,15 +69,15 @@ class _SplashScreenState extends State<SplashScreen> {
                     children: const [
                       Center(
                         child: Text(
-                          'Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text',
-                          style: TextStyle(fontSize: 12),
+                          'Discover the best restaurants near you and get fast and trackable delivery to your doorstep.',
+                          style: TextStyle(fontSize: 15),
                           textAlign: TextAlign.center,
                         ),
                       ),
                       Center(
                         child: Text(
-                          'Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text Filler Text',
-                          style: TextStyle(fontSize: 12),
+                          'Choose your favorite foods through a large selection catered to you and your taste buds.',
+                          style: TextStyle(fontSize: 15),
                           textAlign: TextAlign.center,
                         ),
                       ),
