@@ -12,6 +12,6 @@ Instructions on how to use the flutter app:
   4. Select your store and food items and place them in your cart.
   5. Navigate to your cart in the top right, and review your items before hitting checkout.
   6. Fill out the required information, and review your order summary before placing your order.
-  7. Watch the delivery tracking...
+  7. Watch the delivery tracking and leave a review
   
-Presentation Link (YouTube): 
+Presentation Link (YouTube): https://www.youtube.com/watch?v=wo11ABT17zo 
